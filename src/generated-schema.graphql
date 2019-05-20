@@ -6,22 +6,13 @@ type Mutation {
   createPost(author: String!, content: String!): Post!
 }
 
-interface Node {
-  """Unique identifier for the resource"""
-  id: ID!
-}
-
-type Post implements Node {
+type Post {
   author: String!
   content: String!
   id: ID!
 }
 
 type Query {
-  post(author: String, content: String): Post!
-}
-
-enum StatusEnum {
-  ACTIVE
-  DISABLED
+  post: Post!
+  posts(author: String, content: String): [Post]!
 }

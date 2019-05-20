@@ -10,46 +10,43 @@ import {
 } from "nexus";
 const path = require("path");
 
-const Node = interfaceType({
-  name: "Node",
-  definition(t) {
-    t.id("id", { description: "Unique identifier for the resource" });
-    t.resolveType(() => null);
-  }
-});
-
 const Post = objectType({
   name: "Post",
   definition(t) {
-    t.implements(Node);
     t.id("id");
     t.string("author");
     t.string("content");
   }
 });
 
-const StatusEnum = enumType({
-  name: "StatusEnum",
-  members: ["ACTIVE", "DISABLED"]
-});
-
 const Query = queryType({
   definition(t) {
+    //Returns the first post
     t.field("post", {
       type: Post,
-      args: {
-        author: stringArg(),
-        content: stringArg()
-      },
       resolve: async (_, args, ctx) => {
         return (await ctx.prisma.posts({
           first: 1
         }))[0];
       }
     });
+    //Returns all posts
+    t.field("posts", {
+      type: Post,
+      list: [false],
+      args: {
+        author: stringArg(),
+        content: stringArg()
+      },
+      resolve: async (_, args, ctx) => {
+        let result = await ctx.prisma.posts();
+        return result;
+      }
+    });
   }
 });
 
+//Create post mutation
 const CreatePost = mutationField("createPost", {
   type: Post,
   args: {
@@ -69,8 +66,9 @@ const CreatePost = mutationField("createPost", {
   }
 });
 
+//Adds GraphQL Nexus types to the schema
 export const schema = makeSchema({
-  types: [Post, Node, Query, StatusEnum, CreatePost],
+  types: [Post, Query, CreatePost],
   typegenAutoConfig: {
     sources: [
       { source: path.join(__dirname, "./context.ts"), alias: "context" }

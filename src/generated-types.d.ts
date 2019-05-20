@@ -14,7 +14,6 @@ export interface NexusGenInputs {
 }
 
 export interface NexusGenEnums {
-  StatusEnum: "ACTIVE" | "DISABLED"
 }
 
 export interface NexusGenRootTypes {
@@ -25,7 +24,6 @@ export interface NexusGenRootTypes {
     id: string; // ID!
   }
   Query: {};
-  Node: NexusGenRootTypes['Post'];
   String: string;
   Int: number;
   Float: number;
@@ -34,7 +32,6 @@ export interface NexusGenRootTypes {
 }
 
 export interface NexusGenAllTypes extends NexusGenRootTypes {
-  StatusEnum: NexusGenEnums['StatusEnum'];
 }
 
 export interface NexusGenFieldTypes {
@@ -48,9 +45,7 @@ export interface NexusGenFieldTypes {
   }
   Query: { // field return type
     post: NexusGenRootTypes['Post']; // Post!
-  }
-  Node: { // field return type
-    id: string; // ID!
+    posts: Array<NexusGenRootTypes['Post'] | null>; // [Post]!
   }
 }
 
@@ -62,7 +57,7 @@ export interface NexusGenArgTypes {
     }
   }
   Query: {
-    post: { // args
+    posts: { // args
       author?: string | null; // String
       content?: string | null; // String
     }
@@ -70,7 +65,6 @@ export interface NexusGenArgTypes {
 }
 
 export interface NexusGenAbstractResolveReturnTypes {
-  Node: "Post"
 }
 
 export interface NexusGenInheritedFields {}
@@ -79,9 +73,9 @@ export type NexusGenObjectNames = "Mutation" | "Post" | "Query";
 
 export type NexusGenInputNames = never;
 
-export type NexusGenEnumNames = "StatusEnum";
+export type NexusGenEnumNames = never;
 
-export type NexusGenInterfaceNames = "Node";
+export type NexusGenInterfaceNames = never;
 
 export type NexusGenScalarNames = "Boolean" | "Float" | "ID" | "Int" | "String";
 
