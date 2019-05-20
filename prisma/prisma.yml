@@ -1,5 +1,5 @@
 # Specifies the HTTP endpoint of your Prisma API (deployed to a Prisma Demo server).
-endpoint: https://us1.prisma.sh/henry-yang-01f1d0/Backend-Tutorial/dev
+endpoint: YOUR_ENDPOINT_HERE
 
 # Defines your models, each model is mapped to the database as a table.
 datamodel: datamodel.prisma
