@@ -6,7 +6,8 @@ import {
   makeSchema,
   enumType,
   subscriptionField,
-  mutationField
+  mutationField,
+  mutationType
 } from "nexus";
 const path = require("path");
 
@@ -16,6 +17,18 @@ const Post = objectType({
     t.id("id");
     t.string("author");
     t.string("content");
+  }
+});
+
+const PostSubscriptionPayload = objectType({
+  name: "PostSubscriptionPayload",
+  definition(t) {
+    //t.field("mutation", { type: mutationType });
+    t.field("node", {
+      type: Post,
+      nullable: true
+    });
+    t.list.string("updatedFields", { nullable: true });
   }
 });
 
@@ -66,9 +79,25 @@ const CreatePost = mutationField("createPost", {
   }
 });
 
+const messageSubscription = subscriptionField("post", {
+  type: PostSubscriptionPayload,
+  subscribe: (root, args, context) => {
+    return context.prisma.$subscribe.post({ mutation_in: "CREATED" }) as any;
+  },
+  resolve: payload => {
+    return payload;
+  }
+});
+
 //Adds GraphQL Nexus types to the schema
 export const schema = makeSchema({
-  types: [Post, Query, CreatePost],
+  types: [
+    Post,
+    Query,
+    CreatePost,
+    PostSubscriptionPayload,
+    messageSubscription
+  ],
   typegenAutoConfig: {
     sources: [
       { source: path.join(__dirname, "./context.ts"), alias: "context" }

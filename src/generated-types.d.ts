@@ -23,7 +23,12 @@ export interface NexusGenRootTypes {
     content: string; // String!
     id: string; // ID!
   }
+  PostSubscriptionPayload: { // root type
+    node?: NexusGenRootTypes['Post'] | null; // Post
+    updatedFields?: string[] | null; // [String!]
+  }
   Query: {};
+  Subscription: {};
   String: string;
   Int: number;
   Float: number;
@@ -43,9 +48,16 @@ export interface NexusGenFieldTypes {
     content: string; // String!
     id: string; // ID!
   }
+  PostSubscriptionPayload: { // field return type
+    node: NexusGenRootTypes['Post'] | null; // Post
+    updatedFields: string[] | null; // [String!]
+  }
   Query: { // field return type
     post: NexusGenRootTypes['Post']; // Post!
     posts: Array<NexusGenRootTypes['Post'] | null>; // [Post]!
+  }
+  Subscription: { // field return type
+    post: NexusGenRootTypes['PostSubscriptionPayload']; // PostSubscriptionPayload!
   }
 }
 
@@ -69,7 +81,7 @@ export interface NexusGenAbstractResolveReturnTypes {
 
 export interface NexusGenInheritedFields {}
 
-export type NexusGenObjectNames = "Mutation" | "Post" | "Query";
+export type NexusGenObjectNames = "Mutation" | "Post" | "PostSubscriptionPayload" | "Query" | "Subscription";
 
 export type NexusGenInputNames = never;
 
