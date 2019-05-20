@@ -20,10 +20,10 @@ const Post = objectType({
   }
 });
 
+//The type that we are returning from our subscription
 const PostSubscriptionPayload = objectType({
   name: "PostSubscriptionPayload",
   definition(t) {
-    //t.field("mutation", { type: mutationType });
     t.field("node", {
       type: Post,
       nullable: true
@@ -79,6 +79,7 @@ const CreatePost = mutationField("createPost", {
   }
 });
 
+//subscribes to any messages that are created
 const messageSubscription = subscriptionField("post", {
   type: PostSubscriptionPayload,
   subscribe: (root, args, context) => {
