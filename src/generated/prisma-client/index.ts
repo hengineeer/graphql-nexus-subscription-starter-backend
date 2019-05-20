@@ -37,28 +37,24 @@ export interface Prisma {
    */
 
   post: (where: PostWhereUniqueInput) => PostPromise;
-  posts: (
-    args?: {
-      where?: PostWhereInput;
-      orderBy?: PostOrderByInput;
-      skip?: Int;
-      after?: String;
-      before?: String;
-      first?: Int;
-      last?: Int;
-    }
-  ) => FragmentableArray<Post>;
-  postsConnection: (
-    args?: {
-      where?: PostWhereInput;
-      orderBy?: PostOrderByInput;
-      skip?: Int;
-      after?: String;
-      before?: String;
-      first?: Int;
-      last?: Int;
-    }
-  ) => PostConnectionPromise;
+  posts: (args?: {
+    where?: PostWhereInput;
+    orderBy?: PostOrderByInput;
+    skip?: Int;
+    after?: String;
+    before?: String;
+    first?: Int;
+    last?: Int;
+  }) => FragmentableArray<Post>;
+  postsConnection: (args?: {
+    where?: PostWhereInput;
+    orderBy?: PostOrderByInput;
+    skip?: Int;
+    after?: String;
+    before?: String;
+    first?: Int;
+    last?: Int;
+  }) => PostConnectionPromise;
   node: (args: { id: ID_Output }) => Node;
 
   /**
@@ -66,19 +62,19 @@ export interface Prisma {
    */
 
   createPost: (data: PostCreateInput) => PostPromise;
-  updatePost: (
-    args: { data: PostUpdateInput; where: PostWhereUniqueInput }
-  ) => PostPromise;
-  updateManyPosts: (
-    args: { data: PostUpdateManyMutationInput; where?: PostWhereInput }
-  ) => BatchPayloadPromise;
-  upsertPost: (
-    args: {
-      where: PostWhereUniqueInput;
-      create: PostCreateInput;
-      update: PostUpdateInput;
-    }
-  ) => PostPromise;
+  updatePost: (args: {
+    data: PostUpdateInput;
+    where: PostWhereUniqueInput;
+  }) => PostPromise;
+  updateManyPosts: (args: {
+    data: PostUpdateManyMutationInput;
+    where?: PostWhereInput;
+  }) => BatchPayloadPromise;
+  upsertPost: (args: {
+    where: PostWhereUniqueInput;
+    create: PostCreateInput;
+    update: PostUpdateInput;
+  }) => PostPromise;
   deletePost: (where: PostWhereUniqueInput) => PostPromise;
   deleteManyPosts: (where?: PostWhereInput) => BatchPayloadPromise;
 
@@ -400,6 +396,6 @@ export const models: Model[] = [
 export const Prisma = makePrismaClientClass<ClientConstructor<Prisma>>({
   typeDefs,
   models,
-  endpoint: `https://us1.prisma.sh/henry-yang-01f1d0/Backend-Tutorial/dev`
+  endpoint: `YOUR_ENDPOINT_HERE`
 });
 export const prisma = new Prisma();
