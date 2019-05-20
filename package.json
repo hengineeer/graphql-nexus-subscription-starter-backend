@@ -1,0 +1,19 @@
+{
+  "name": "server",
+  "version": "0.0.0",
+  "scripts": {
+    "dev": "nodemon --watch 'src/**/*.ts' --exec yarn start",
+    "start": "ts-node src/index.ts"
+  },
+  "dependencies": {
+    "graphql-yoga": "1.17.4",
+    "nexus": "^0.11.7",
+    "prisma-client-lib": "1.32.0-beta"
+  },
+  "devDependencies": {
+    "nodemon": "^1.18.11",
+    "prisma": "1.32.0-beta",
+    "ts-node": "7.0.1",
+    "typescript": "3.2.2"
+  }
+}
